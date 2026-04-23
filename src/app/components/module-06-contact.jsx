@@ -76,6 +76,17 @@ const infoIcons = {
   Location: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>,
 };
 
+  const Field = ({ label, error, children }) => (
+    <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+      <label style={{ fontSize:11, fontWeight:600,
+        color: error ? "#F87171" : "#64748B", letterSpacing:".06em", textTransform:"uppercase" }}>
+        {label}
+      </label>
+      {children}
+      {error && <span style={{ fontSize:11, color:"#F87171" }}>{error}</span>}
+    </div>
+  );
+
 function InfoCard({ item, copyLabel, copiedLabel }) {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
@@ -149,18 +160,39 @@ export default function ContactModule({ lang: propLang }) {
     return e;
   };
 
-  const handleSubmit = async () => {
-    const e = validate();
-    if (Object.keys(e).length) { setErrors(e); return; }
-    setErrors({}); setStatus("sending");
-    await new Promise(r => setTimeout(r, 1800));
-    setStatus("success");
-  };
+const handleSubmit = async () => {
+  const e = validate();
+  if (Object.keys(e).length) { setErrors(e); return; }
+  setErrors({});
+  setStatus("sending");
+
+  try {
+    const res = await fetch("https://formspree.io/f/mlgaalpb", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name:    form.name,
+        email:   form.email,
+        subject: form.subject,
+        message: form.message,
+      }),
+    });
+
+    if (res.ok) {
+      setStatus("success");
+    } else {
+      setStatus("error");
+    }
+  } catch {
+    setStatus("error");
+  }
+};
 
   const handleChange = (field, value) => {
     setForm(prev => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors(prev => ({ ...prev, [field]: undefined }));
   };
+  
 
   const focusStyle = (field) => ({
     ...inputBase,
@@ -168,17 +200,6 @@ export default function ContactModule({ lang: propLang }) {
       : errors[field] ? "rgba(248,113,113,.4)"
       : "rgba(148,163,184,.12)",
   });
-
-  const Field = ({ label, error, children }) => (
-    <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-      <label style={{ fontSize:11, fontWeight:600,
-        color: error ? "#F87171" : "#64748B", letterSpacing:".06em", textTransform:"uppercase" }}>
-        {label}
-      </label>
-      {children}
-      {error && <span style={{ fontSize:11, color:"#F87171" }}>{error}</span>}
-    </div>
-  );
 
   return (
     <section style={{ fontFamily:"'DM Sans',system-ui,sans-serif", background:"#080C14",
