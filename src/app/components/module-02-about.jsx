@@ -333,7 +333,7 @@ export default function AboutModule({ lang: propLang }) {
               }}
             >
               <img
-                src="/PatricioFredes.png"
+                src="/patriciofredes.png"
                 alt="Patricio Fredes"
                 style={{ width:"100%", height:"100%",
                   objectFit:"cover", objectPosition:"center top", display:"block" }}
