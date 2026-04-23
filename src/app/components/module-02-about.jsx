@@ -47,10 +47,48 @@ const data = {
     },
   ],
   cats: [
-    { label: "Frontend",      items: ["React", "Next.js", "TypeScript", "JavaScript", "HTML5", "CSS3"] },
-    { label: "Backend",       items: ["Node.js", "Python", "PHP (Kohana)", "REST APIs"] },
-    { label: "Base de datos", items: ["PostgreSQL", "SQL Server", "MongoDB", "MySQL"] },
-    { label: "Cloud & DevOps",items: ["AWS (S3, CloudFront, Lambda, API Gateway, Cognito)", "Docker", "CI/CD"] },
+    {
+      label: "Frontend",
+      items: [
+        { name:"React",      icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { name:"Next.js",    icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+        { name:"TypeScript", icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+        { name:"JavaScript", icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+        { name:"HTML5",      icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+        { name:"CSS3",       icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+        { name:"Tailwind",   icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+      ],
+    },
+    {
+      label: "Backend",
+      items: [
+        { name:"Node.js",  icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+        { name:"Python",   icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name:"Java",     icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+        { name:"PHP",      icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" },
+        { name:"Flask",    icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" },
+        { name:"Express",  icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+      ],
+    },
+    {
+      label: "Base de datos",
+      items: [
+        { name:"PostgreSQL", icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+        { name:"MongoDB",    icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+        { name:"MySQL",      icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+        { name:"SQL Server", icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-original.svg" },
+      ],
+    },
+    {
+      label: "Cloud & DevOps",
+      items: [
+        { name:"AWS",    icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
+        { name:"Docker", icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+        { name:"Git",    icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+        { name:"GitHub", icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+        { name:"Linux",  icon:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
+      ],
+    },
   ],
 };
 
@@ -164,6 +202,49 @@ function StatCard({ value, label }) {
         fontSize:26, color:"#38BDF8", lineHeight:1 }}>{value}</span>
       <span style={{ fontSize:10, fontWeight:500, color:"#64748B",
         letterSpacing:".06em", textTransform:"uppercase" }}>{label}</span>
+    </div>
+  );
+}
+
+// ─── STACK CARD ──────────────────────────────────────────────────────────────
+function StackCard({ item }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display:"flex", flexDirection:"column", alignItems:"center",
+        justifyContent:"center", gap:8,
+        padding:"14px 8px", borderRadius:6,
+        border: hovered
+          ? "1px solid rgba(14,165,233,.35)"
+          : "1px solid rgba(255,255,255,.07)",
+        background: hovered
+          ? "rgba(14,165,233,.07)"
+          : "rgba(15,23,42,.6)",
+        cursor:"default",
+        transition:"all .2s",
+        transform: hovered ? "translateY(-3px)" : "translateY(0)",
+        boxShadow: hovered ? "0 8px 24px rgba(0,0,0,.3)" : "none",
+      }}
+    >
+      <img
+        src={item.icon}
+        alt={item.name}
+        width={32}
+        height={32}
+        style={{
+          objectFit:"contain",
+          filter: hovered ? "brightness(1.1)" : "brightness(.85)",
+          transition:"filter .2s",
+        }}
+        onError={e => { e.currentTarget.style.display = "none"; }}
+      />
+      <span style={{
+        fontSize:10.5, fontWeight:500, color: hovered ? "#E2E8F0" : "#64748B",
+        textAlign:"center", lineHeight:1.2, transition:"color .2s",
+      }}>{item.name}</span>
     </div>
   );
 }
@@ -400,19 +481,18 @@ export default function AboutModule({ lang: propLang }) {
 
             {/* ── STACK ── */}
             {tab === "stack" && (
-              <div style={{ display:"flex", flexDirection:"column", gap:24 }}>
+              <div style={{ display:"flex", flexDirection:"column", gap:28 }}>
                 {data.cats.map((cat, i) => (
                   <div key={i}>
                     <p style={{ fontSize:10.5, fontWeight:700, color:"#0EA5E9",
-                      letterSpacing:".1em", textTransform:"uppercase", marginBottom:10 }}>
+                      letterSpacing:".12em", textTransform:"uppercase", marginBottom:14 }}>
                       {cat.label}
                     </p>
-                    <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
+                    <div style={{ display:"grid",
+                      gridTemplateColumns:"repeat(auto-fill, minmax(100px, 1fr))",
+                      gap:10 }}>
                       {cat.items.map(item => (
-                        <span key={item} style={{ fontSize:12, fontWeight:500,
-                          color:"#94A3B8", padding:"5px 12px", borderRadius:3,
-                          border:"1px solid rgba(148,163,184,.12)",
-                          background:"rgba(148,163,184,.05)" }}>{item}</span>
+                        <StackCard key={item.name} item={item} />
                       ))}
                     </div>
                   </div>
