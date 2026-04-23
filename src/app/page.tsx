@@ -11,7 +11,7 @@ import ContactModule  from "@/app/components/module-06-contact";
 // Para el preview inline, los componentes están embebidos al final de este archivo.
 
 // ─── SCROLL UTILS ─────────────────────────────────────────────────────────────
-function scrollToSection(id) {
+function scrollToSection(id: string) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
