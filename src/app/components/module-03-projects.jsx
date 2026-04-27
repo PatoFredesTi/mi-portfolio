@@ -51,6 +51,25 @@ const projects = {
       icon: "🕷",
       color: "#A78BFA",
     },
+        {
+      id: 4,
+      title: "Data Normalization Scraper",
+      subtitle: "Pipeline de datos · Scraping legislativo",
+      description:   "Pipeline de procesamiento de datos sobre registros legislativos de Chile. Normaliza y deduplica un dataset de 258 registros desde múltiples fuentes, y extrae proyectos de ley desde la Cámara de Diputadas y Diputados con 73 tests automatizados.",
+      stack: ["Python", "BeautifulSoup4", "Requests", "pytest", "python-dateutil"],
+      category: "Backend",
+      status: "building",
+      statusLabel: "Ver repositorio",
+      github: "https://github.com/PatoFredesTi/data-normalization-scraper",
+      demo: null,
+      highlights: [
+        "73 tests automatizados",
+        "258 registros normalizados y deduplicados",
+        "8/8 URLs scrapeadas exitosamente"
+      ],
+      icon: "⚖️",
+      color: "#A78BFA",
+    }
   ],
   en: [
     {
@@ -101,6 +120,25 @@ const projects = {
       icon: "🕷",
       color: "#A78BFA",
     },
+        {
+      id: 4,
+      title: "Data Normalization Scraper",
+      subtitle: "Pipeline de datos · Scraping legislativo",
+      description:   "Pipeline de procesamiento de datos sobre registros legislativos de Chile. Normaliza y deduplica un dataset de 258 registros desde múltiples fuentes, y extrae proyectos de ley desde la Cámara de Diputadas y Diputados con 73 tests automatizados.",
+      stack: ["Python", "BeautifulSoup4", "Requests", "pytest", "python-dateutil"],
+      category: "Backend",
+      status: "building",
+      statusLabel: "Ver repositorio",
+      github: "https://github.com/PatoFredesTi/data-normalization-scraper",
+      demo: null,
+      highlights: [
+        "73 tests automatizados",
+        "258 registros normalizados y deduplicados",
+        "8/8 URLs scrapeadas exitosamente"
+      ],
+      icon: "⚖️",
+      color: "#A78BFA",
+    }
   ],
 };
 
